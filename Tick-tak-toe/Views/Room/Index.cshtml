@@ -1,0 +1,69 @@
+﻿@model RoomViewModel
+<link rel="stylesheet" href="~/css/room.css" asp-append-version="true" />
+<input type="hidden" id="roomName" value="@Model.NameRoom">
+<input type="hidden" id="playerName" value="@Model.NamePlayer">
+<div class="container" id="formRoom" 
+     @if (LocalData.Rooms[Model.NameRoom].GameIsStarted){
+         <text>hidden="hidden"</text>
+     }>
+    <div class="row" id="room">
+        @if (LocalData.Rooms[Model.NameRoom].PlayersReady.Count != 0)
+        {
+            @foreach (var item in LocalData.Rooms[Model.NameRoom].PlayersReady)
+            {
+                <div class="row mb-3" id="@(item.Key)RowStatus">
+                    <input type="hidden" id="@(item.Key)input" value="@item.Key">
+                    <div class="col-4">
+                        <p>@item.Key</p>
+                    </div>
+                    <div class="col-2" id="@(item.Key)status">
+                        @(item.Value ? "Готов" : "Не готов")
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <button class="btn btn-primary" id="readyBtn">Готов</button>
+        </div>
+    </div>
+</div>
+<div class="container" id="turn">
+    <div>
+        <p id="turnPlayer"></p>
+    </div>
+</div>
+<div class="container" id="game" @if (!LocalData.Rooms[Model.NameRoom].GameIsStarted){<text>hidden="hidden"</text>}>
+    <div class="cell 00 row-1"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[0,0]</p></div>
+    <div class="cell 01 row-1"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[0,1]</p></div>
+    <div class="cell 02 row-1"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[0,2]</p></div>
+    <div class="cell 10 row-2"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[1,0]</p></div>
+    <div class="cell 11 row-2"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[1,1]</p></div>
+    <div class="cell 12 row-2"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[1,2]</p></div>
+    <div class="cell 20 row-3"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[2,0]</p></div>
+    <div class="cell 21 row-3"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[2,1]</p></div>
+    <div class="cell 22 row-3"><p class="symbol">@LocalData.Rooms[Model.NameRoom].Board[2,2]</p></div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Конец игры</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button id="exitBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Выйти</button>
+                <button id="restartBtn" type="button" class="btn btn-primary">Рестарт</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/signalr.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/roomscript.js"></script>

@@ -1,0 +1,29 @@
+﻿@model LobbyViewModel
+<form method="post" asp-action="Lobby" asp-controller="Lobby">
+    <div class="form-group mb-3">
+        <label for="nameRoom">Название комнаты</label>
+        <input asp-for="RoomName" id="nameRoom" class="form-control" placeholder="Введите название комнаты">
+        <span asp-validation-for="RoomName" class="text-danger" />
+    </div>
+    <button type="submit" class="btn btn-primary mb-3" id="createBtn">Создать комнату</button>
+</form>
+<hr/>
+<div class="container" id="createdRooms">
+    @foreach (var roomName in LocalData.Rooms)
+    {
+        <div class="row mb-3">
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="@roomName.Key">@roomName.Key</li>
+                    <li class="list-group-item" id="roomName@(roomName.Key)">@(LocalData.Rooms[roomName.Key].PlayerCounter)/2</li>
+                    <li class="list-group-item">
+                        <a id="enterRoom" class="btn btn-primary" href="@Url.Action("Index", "Room", new { roomName = roomName.Key })">Войти</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/signalr.min.js"></script>
+<script src="~/js/lobbies.js"></script>

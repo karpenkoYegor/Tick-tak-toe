@@ -1,0 +1,18 @@
+﻿@model LoginViewModel
+@{
+}
+<form method="post" asp-action="Login" asp-controller="Account">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <label asp-for="Login" class="form-label">Nickname</label>
+                    <input class="form-control" asp-for="Login">
+                    <span asp-validation-for="Login" class="text-danger"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,31 @@
+﻿#game {
+    width: 350px;
+    height: 360px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: #FFCC99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px;
+}
+
+    .cell:hover {
+        background: #FF9966;
+    }
+
+#turn {
+    display: flex;
+    justify-content: center;
+}
+
+.symbol {
+    font-size: 72px;
+}
